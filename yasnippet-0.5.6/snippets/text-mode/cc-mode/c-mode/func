@@ -1,0 +1,6 @@
+#name: typename function(args) { ... }
+# --
+${1:int} ${2:f}($3)
+{
+  $0
+}
