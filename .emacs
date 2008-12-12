@@ -104,7 +104,8 @@ The return value is not useful.
 (global-set-key "\C-cl" 'org-store-link) ; as recommended in org-mode docs
 (global-set-key "\C-ca" 'org-agenda)
 (auto-mode "\\.org$" 'org-mode)
-(add-hook 'python-mode-hook 'orgtbl-mode)
+;; disabled because it breaks shift-space
+;(add-hook 'python-mode-hook 'orgtbl-mode)
 (fset 'insert-wikipedia-link
    [?[ ?[ ?\C-y ?] ?[ ?\C-y ?] ?\C-b ?\C-  ?\C-r ?/ ?\C-m ?\M-x ?r ?e ?p ?l ?a ?c ?e ?- ?s ?t tab return ?_ return ?  return ?\C-r ?/ ?\C-m ?\C-f ?\C-r ?[ ?\C-m ?\C-f ?\C-x ?\C-x ?\C-w ?\C-s ?] ?\C-m ?]])
 
