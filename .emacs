@@ -120,6 +120,11 @@ The return value is not useful.
 (add-hook 'js2-mode-hook 'flyspell-prog-mode)
 (add-hook 'php-mode-hook 'flyspell-prog-mode)
 
+(require 'shell)
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
 (require 'saveplace)
 
 ;;; still doesn't handle the formats 4154975513 and 415 4975513
