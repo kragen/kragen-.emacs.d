@@ -568,7 +568,7 @@ too bad for Lisps."
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(default ((t (:stipple nil :background "#ffffff" :foreground "#000000" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 80 :width normal :family "schumacher-clean"))))
+ '(default ((t (:stipple nil :background "#ffffff" :foreground "#000000" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 75 :width normal :family "Monospace"))))
  '(paren-face-match ((((class color)) (:background "green"))))
  '(paren-face-mismatch ((((class color)) (:foreground "white" :background "red"))))
  '(paren-match ((t (:background "green"))))
