@@ -106,6 +106,10 @@ The return value is not useful.
 (auto-mode "\\.org$" 'org-mode)
 ;; disabled because it breaks shift-space
 ;(add-hook 'python-mode-hook 'orgtbl-mode)
+
+;; work around org-mode's breakage of shift-space
+(global-set-key [(shift ? )] #'(lambda () (interactive) (insert " ")))
+
 (fset 'insert-wikipedia-link
    [?[ ?[ ?\C-y ?] ?[ ?\C-y ?] ?\C-b ?\C-  ?\C-r ?/ ?\C-m ?\M-x ?r ?e ?p ?l ?a ?c ?e ?- ?s ?t tab return ?_ return ?  return ?\C-r ?/ ?\C-m ?\C-f ?\C-r ?[ ?\C-m ?\C-f ?\C-x ?\C-x ?\C-w ?\C-s ?] ?\C-m ?]])
 
@@ -122,10 +126,12 @@ The return value is not useful.
 
 (require 'shell)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
 (require 'saveplace)
+(require 'gist)
+
+(which-func-mode t)         ; I didn't know about this!  Thanks Glyph!
 
 ;;; still doesn't handle the formats 4154975513 and 415 4975513
 (defun reformat-us-phone-number ()
@@ -219,6 +225,7 @@ The return value is not useful.
 (global-set-key [(control >)] 'indent-rigidly-4)
 (global-set-key [(control <)] 'outdent-rigidly-4)
 
+;;; XXX has a bug --- won’t move “`” to after a newline.
 (defun markdown-tt-word ()
   "Hit N times to enclose previous N chunks of nonwhitespace in `` (for Markdown)."
   (interactive)
@@ -309,6 +316,14 @@ The return value is not useful.
 ;; by default this key is set to abbrev-prefix-mark, which I never use
 (global-set-key [(meta ?')] 'smart-apostrophe)      
 
+;; sample code from 1979 Multics Emacs: http://www.multicians.org/mepap.html
+;; The only thing that’s wrong with it is that it doesn’t have an (interactive)
+;; declaration; otherwise it works!
+(defun bracket-word ()
+       (forward-word)
+       (insert-string ">")
+       (backward-word)
+       (insert-string "<"))
 
 ;;; do a heavy-handed <pre>
 (defun heavy-handed-pre (start end)
@@ -528,6 +543,7 @@ too bad for Lisps."
  '(global-font-lock-mode t nil (font-lock))
  '(indent-tabs-mode nil)
  '(inferior-lisp-program "sbcl")
+ '(ispell-dictionary-alist (quote ((nil "[A-Za-z]" "[^A-Za-z]" "'\\|’" nil ("-B") nil iso-8859-1) ("american" "[A-Za-z]" "[^A-Za-z]" "'\\|’" nil ("-B") nil iso-8859-1) ("brasileiro" "[A-ZÁÉÍÓÚÀÈÌÒÙÃÕÇÜÂÊÔa-záéíóúàèìòùãõçüâêô]" "[^A-ZÁÉÍÓÚÀÈÌÒÙÃÕÇÜÂÊÔa-záéíóúàèìòùãõçüâêô]" "[']" nil nil nil iso-8859-1) ("british" "[A-Za-z]" "[^A-Za-z]" "[']" nil ("-B") nil iso-8859-1) ("castellano" "[A-ZÁÉÍÑÓÚÜa-záéíñóúü]" "[^A-ZÁÉÍÑÓÚÜa-záéíñóúü]" "[-]" nil ("-B") "~tex" iso-8859-1) ("castellano8" "[A-ZÁÉÍÑÓÚÜa-záéíñóúü]" "[^A-ZÁÉÍÑÓÚÜa-záéíñóúü]" "[-]" nil ("-B" "-d" "castellano") "~latin1" iso-8859-1) ("czech" "[A-Za-zÁÉÌÍÓÚÙÝ®©ÈØÏ«Òáéìíóúùý¾¹èøï»ò]" "[^A-Za-zÁÉÌÍÓÚÙÝ®©ÈØÏ«Òáéìíóúùý¾¹èøï»ò]" "" nil ("-B") nil iso-8859-2) ("dansk" "[A-ZÆØÅa-zæøå]" "[^A-ZÆØÅa-zæøå]" "[']" nil ("-C") nil iso-8859-1) ("deutsch" "[a-zA-Z\"]" "[^a-zA-Z\"]" "[']" t ("-C") "~tex" iso-8859-1) ("deutsch8" "[a-zA-ZÄÖÜäößü]" "[^a-zA-ZÄÖÜäößü]" "[']" t ("-C" "-d" "deutsch") "~latin1" iso-8859-1) ("english" "[A-Za-z]" "[^A-Za-z]" "[']" nil ("-B") nil iso-8859-1) ("esperanto" "[A-Za-z¦¬¶¼ÆØÝÞæøýþ]" "[^A-Za-z¦¬¶¼ÆØÝÞæøýþ]" "[-']" t ("-C") "~latin3" iso-8859-1) ("esperanto-tex" "[A-Za-z^\\]" "[^A-Za-z^\\]" "[-'`\"]" t ("-C" "-d" "esperanto") "~tex" iso-8859-1) ("francais7" "[A-Za-z]" "[^A-Za-z]" "[`'^---]" t nil nil iso-8859-1) ("francais" "[A-Za-zÀÂÆÇÈÉÊËÎÏÔÙÛÜàâçèéêëîïôùûü]" "[^A-Za-zÀÂÆÇÈÉÊËÎÏÔÙÛÜàâçèéêëîïôùûü]" "[-']" t nil "~list" iso-8859-1) ("francais-tex" "[A-Za-zÀÂÆÇÈÉÊËÎÏÔÙÛÜàâçèéêëîïôùûü\\]" "[^A-Za-zÀÂÆÇÈÉÊËÎÏÔÙÛÜàâçèéêëîïôùûü\\]" "[-'^`\"]" t nil "~tex" iso-8859-1) ("italiano" "[A-ZÀÁÈÉÌÍÒÓÙÚa-zàáèéìíóùú]" "[^A-ZÀÁÈÉÌÍÒÓÙÚa-zàáèéìíóùú]" "[-]" nil ("-B") "~tex" iso-8859-1) ("nederlands" "[A-Za-zÀ-ÅÇÈ-ÏÒ-ÖÙ-Üà-åçè-ïñò-öù-ü]" "[^A-Za-zÀ-ÅÇÈ-ÏÒ-ÖÙ-Üà-åçè-ïñò-öù-ü]" "[']" t ("-C") nil iso-8859-1) ("nederlands8" "[A-Za-zÀ-ÅÇÈ-ÏÒ-ÖÙ-Üà-åçè-ïñò-öù-ü]" "[^A-Za-zÀ-ÅÇÈ-ÏÒ-ÖÙ-Üà-åçè-ïñò-öù-ü]" "[']" t ("-C") nil iso-8859-1) ("norsk" "[A-Za-zÅÆÇÈÉÒÔØåæçèéòôø]" "[^A-Za-zÅÆÇÈÉÒÔØåæçèéòôø]" "[\"]" nil nil "~list" iso-8859-1) ("norsk7-tex" "[A-Za-z{}\\'^`]" "[^A-Za-z{}\\'^`]" "[\"]" nil ("-d" "norsk") "~plaintex" iso-8859-1) ("polish" "[A-Za-z¡£¦¬¯±³¶¼¿ÆÊÑÓæêñó]" "[^A-Za-z¡£¦¬¯±³¶¼¿ÆÊÑÓæêñó]" "" nil nil nil iso-8859-2) ("portugues" "[a-zA-ZÁÂÉÓàáâéêíóãú]" "[^a-zA-ZÁÂÉÓàáâéêíóãú]" "[']" t ("-C") "~latin1" iso-8859-1) ("russian" "[áâ÷çäå³öúéêëìíîïðòóôõæèãþûýøùÿüàñÁÂ×ÇÄÅ£ÖÚÉÊËÌÍÎÏÐÒÓÔÕÆÈÃÞÛÝØÙßÜÀÑ]" "[^áâ÷çäå³öúéêëìíîïðòóôõæèãþûýøùÿüàñÁÂ×ÇÄÅ£ÖÚÉÊËÌÍÎÏÐÒÓÔÕÆÈÃÞÛÝØÙßÜÀÑ]" "" nil nil nil koi8-r) ("slovak" "[A-Za-zÁÄÉÍÓÚÔÀÅ¥Ý®©ÈÏ«Òáäéíóúôàåµý¾¹èï»ò]" "[^A-Za-zÁÄÉÍÓÚÔÀÅ¥Ý®©ÈÏ«Òáäéíóúôàåµý¾¹èï»ò]" "" nil ("-B") nil iso-8859-2) ("svenska" "[A-Za-zåäöéàüèæøçÅÄÖÉÀÜÈÆØÇ]" "[^A-Za-zåäöéàüèæøçÅÄÖÉÀÜÈÆØÇ]" "[']" nil ("-C") "~list" iso-8859-1))))
  '(js2-cleanup-whitespace nil)
  '(js2-strict-missing-semi-warning nil)
  '(longlines-show-hard-newlines t)
@@ -545,7 +561,8 @@ too bad for Lisps."
  '(truncate-partial-width-windows nil)
  '(vc-handled-backends nil)
  '(version-control (quote never))
- '(visible-bell t))
+ '(visible-bell t)
+ '(which-func-modes (quote (emacs-lisp-mode c-mode c++-mode perl-mode cperl-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode python-mode))))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
