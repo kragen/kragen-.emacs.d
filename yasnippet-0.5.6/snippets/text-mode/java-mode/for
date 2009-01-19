@@ -1,0 +1,6 @@
+#contributor : Kragen Javier Sitaker <kragen@canonical.org>
+#name : for (var ii = 0; ii < ...; ii++) { ... }
+# --
+for (var ${1:ii} = 0; $1 < ${2:list.length}; $1++) {
+    $0
+}

@@ -1,0 +1,11 @@
+#contributor : Kragen Javier Sitaker <kragen@canonical.org>
+#name : <html> with <head>, <body>, and <h1>
+# --
+<html><head>
+  <title>${1:Something Unique In The World}</title>
+  <link rel="stylesheet" href="http://www.canonical.org/~kragen/style.css" />
+</head><body>
+  <h1>$1</h1>
+
+  $0
+</body></html>

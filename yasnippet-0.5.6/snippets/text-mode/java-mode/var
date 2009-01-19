@@ -1,0 +1,4 @@
+#contributor : Kragen Javier Sitaker <kragen@canonical.org>
+#name : var xx = ...
+# --
+var ${1:xx} = $0

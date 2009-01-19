@@ -1,0 +1,6 @@
+#contributor : Kragen Javier Sitaker <kragen@canonical.org>
+#name : function f(...) { ... }
+# --
+function ${1:f}($2) {
+    $0
+}

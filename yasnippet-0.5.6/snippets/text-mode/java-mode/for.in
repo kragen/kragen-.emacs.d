@@ -1,0 +1,6 @@
+#contributor : Kragen Javier Sitaker <kragen@canonical.org>
+#name : for (var ii in obj) { ... }
+# --
+for (var ${1:ii} in $2) {
+    $0
+}
