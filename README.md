@@ -11,7 +11,7 @@ To get this .emacs.d to run on Ubuntu 8.10, I had to install the
 following packages:
 
     sudo apt-get install emacs-snapshot emacs-goodies-el \
-         python-mode tuareg-mode ruby1.8-elisp php-elisp
+         python-mode tuareg-mode ruby1.8-elisp php-elisp curl
 
 I also needed to do this to get `gist.el`:
 
