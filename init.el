@@ -527,6 +527,15 @@ too bad for Lisps."
   (find-file (current-line-contents)))
 (global-set-key [f8] 'find-file-named-on-current-line)
 
+;;; I want a key to open the current buffer all over the screen.
+(defun all-over-the-screen ()
+  (interactive)
+  (delete-other-windows)
+  (split-window-horizontally)
+  (split-window-horizontally)
+  (balance-windows)
+  (follow-mode t))
+
 
 ;;; custom
 
