@@ -52,7 +52,9 @@
 
 ;; yuck, I can't just `require` js2-mode
 ;; because it doesn't `(provide 'js2)`
-(autoload 'js2-mode "js2" nil t)
+(load-library "js2")
+(setq js2-mode-must-byte-compile nil)   ; I'm having some kind of compile error...
+;(autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 
@@ -68,6 +70,10 @@
   
   Why the FUCK is this not in the standard library?"
   (push (cons expr mode) auto-mode-alist))
+
+(require 'lua-mode)
+(defun turn-off-filladapt-mode (filladapt-mode 0))
+(add-hook 'lua-mode-hook 'turn-off-filladapt-mode)
 
 (defun add-n-to-list (list-var elements &optional append compare-fn)
   "Add whichever ELEMENTS to the value of LIST-VAR that aren't there yet.
