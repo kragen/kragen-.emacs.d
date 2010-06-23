@@ -74,7 +74,7 @@
 ;; Filladapt mode does poorly with Lua comment delimiters in Emacs
 ;; 23.0.60.1.
 (require 'lua-mode)
-(defun turn-off-filladapt-mode (filladapt-mode 0))
+(defun turn-off-filladapt-mode () (filladapt-mode 0))
 (add-hook 'lua-mode-hook 'turn-off-filladapt-mode)
 
 (defun add-n-to-list (list-var elements &optional append compare-fn)
