@@ -50,16 +50,13 @@
 (yas/initialize)
 (yas/load-directory "~/.emacs.d/yasnippet-0.5.6/snippets")
 
-;; yuck, I can't just `require` js2-mode
-;; because it doesn't `(provide 'js2)`
-(load-library "js2")
-(setq js2-mode-must-byte-compile nil)   ; I'm having some kind of compile error...
-;(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+;;; Can't `require` js3 because it doesn't `provide`.
+(push "/home/user/.emacs.d/js3-mode" load-path)
+(load "js3")
 
-
-;;; The python.el that ships with Emacs 22.2 is inferior.
-(require 'python-mode)
+;;; The python.el that ships with Emacs 22.2 is inferior.  I used to
+;;; require python-mode here to use the Python mode from the Python
+;;; distribution, but now the python.el from Emacs 23 is adequate.
 
 ;;; tuareg-mode doesn't get auto-loaded
 (require 'tuareg)
@@ -73,8 +70,8 @@
 
 ;; Filladapt mode does poorly with Lua comment delimiters in Emacs
 ;; 23.0.60.1.
-(require 'lua-mode)
 (defun turn-off-filladapt-mode () (filladapt-mode 0))
+(require 'lua-mode) ; need to apt-get install lua-mode to have this work.
 (add-hook 'lua-mode-hook 'turn-off-filladapt-mode)
 
 (defun add-n-to-list (list-var elements &optional append compare-fn)
@@ -125,7 +122,8 @@ The return value is not useful.
 (fset 'insert-wikipedia-link
    [?[ ?[ ?\C-y ?] ?[ ?\C-y ?] ?\C-b ?\C-  ?\C-r ?/ ?\C-m ?\M-x ?r ?e ?p ?l ?a ?c ?e ?- ?s ?t tab return ?_ return ?  return ?\C-r ?/ ?\C-m ?\C-f ?\C-r ?[ ?\C-m ?\C-f ?\C-x ?\C-x ?\C-w ?\C-s ?] ?\C-m ?]])
 
-(require 'php-mode)
+(require 'php-mode)      ; need to apt-get install php-elisp for this
+
 
 (add-hook 'org-mode-hook 'flyspell-mode)
 (add-hook 'cperl-mode-hook 'flyspell-prog-mode)
@@ -141,7 +139,8 @@ The return value is not useful.
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
 (require 'saveplace)
-(require 'gist)
+;;; To get this to work I think I have to fiddle with git submodules
+;;;(require 'gist)
 
 (which-func-mode t)         ; I didn't know about this!  Thanks Glyph!
 
@@ -191,6 +190,7 @@ The return value is not useful.
 
 (global-set-key [f5] 'recompile)
 (global-set-key [f6] 'browse-url-at-point)
+(global-set-key (kbd "C-z") (lambda () (interactive) (message "^Z")))
 
 (defun underline-line-with (char)
   (save-excursion
@@ -555,6 +555,10 @@ too bad for Lisps."
    '(default ((t (:stipple nil :background "black" :foreground "red" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
    '(mode-line ((((class color) (min-colors 88)) (:background "black" :foreground "#990000" :box (:line-width -1 :style released-button)))))))
 
+;;; Are these customize settings reflected in js3?  I'm not sure
+; '(js2-cleanup-whitespace nil)
+; '(js2-strict-missing-semi-warning nil)
+
 ;;; custom
 
 (custom-set-variables
@@ -563,6 +567,7 @@ too bad for Lisps."
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(asm-comment-char 35)
+ '(blink-matching-paren-dont-ignore-comments t)
  '(column-number-mode t)
  '(compilation-scroll-output t)
  '(default-input-method "latin-1-prefix")
