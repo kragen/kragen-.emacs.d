@@ -222,6 +222,57 @@ The return value is not useful.
    [?\[ ?\M-0 f3 ?\] ?\C-  ?\M-\} ?\M-\} ?\[ f3 ?\] ?: ?  ?\C-y ?\C-m ?\C-u ?\C-  ?\C-u ?\C- ])
 (global-set-key [(control meta ?\])] 'insert-markdown-footnote-link)
 
+(defun insert-markdown-foot-note-link-elisp ()
+  "An almost-working translation of insert-markdown-footnote-link.
+
+This adds a Markdown-style footnote to the end of the paragraph
+after the current one, with contents found in the kill ring.  It
+uses a kmacro-counter to assign unique numbers to each footnote,
+which you may want to initialize to a nonzero initial value with
+\\[kmacro-set-counter].
+
+I say ‘almost-working’ because it isn’t really okay for things
+that aren’t keyboard macros to use the keyboard macro counter.
+
+This could be improved to do the following:
+
+1. Use its own buffer-local variable to assign footnote numbers.
+2. Initialize that variable from the buffer contents when
+   necessary to avoid clashing footnote numbers.  Regexp search
+   for '^\[[0-9]+\]: ' ought to be adequate to find them.
+3. Provide a command for changing that variable when the
+   initialization gets it wrong or hangs. (?)
+4. Look back to see if we’re following a ]; if not, enclose the
+   previous word in [] to make it a link before inserting the
+   footnote.
+5. Maybe search through x-get-cut-buffer values (apparently not
+   used by Firefox, though) or current PRIMARY and CLIPBOARD
+   selections for URLs, or watch for X selection changes, instead
+   of pasting some random piece of text which may not be an URL.
+6. Look back to see if we're following ][digits], and if so,
+   instead of inserting a new link, move the previous [ back to
+   the end of the previous whitespace, expanding the link, rather
+   than adding a new footnote in a syntactically invalid place.
+7. Maybe look for a browser window that publishes the title of
+   the link?  Seems like Firefox doesn’t expose the URL as an X11
+   property any more (probably no Netscape since Netscape 3 has).
+   WM_WINDOW_ROLE is “browser” and WM_NAME has the title in both
+   Chromium and Iceweasel, but the URL isn’t published.
+
+"
+  (interactive)
+  (insert "[")
+  (kmacro-insert-counter 0)
+  (insert "]")
+  (save-excursion
+    (forward-paragraph 2)
+    (insert "[")
+    (kmacro-insert-counter 1)
+    (insert "]: ")
+    (yank)
+    (insert "\n")))
+
+
 (defun insert-em-dash ()
   "Insert a TeX-style em-dash '---' with appropriate spaces around it."
   (interactive)
