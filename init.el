@@ -266,7 +266,7 @@ This could be improved to do the following:
 
 "
   (interactive)
-  (if (looking-back "]\[[0-9]+\]")      ; expand existing link
+  (if (looking-back "]\[[0-9]+\]" (- (point) 20)) ; expand existing link
       (save-excursion
         (search-backward "[")
         (search-backward "[")
