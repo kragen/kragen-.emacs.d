@@ -201,7 +201,7 @@ The return value is not useful.
     (let ((length (- (point-at-eol) (point-at-bol))))
       (end-of-line)
       (when (looking-at "\n\\(=+\\|-+\\)$")
-          (kill-line)
+          (kill-line) ; XXX this is bad; we shouldn’t clobber kill ring
           (kill-line))
       (insert "\n")
       (insert (make-string length char)))))
