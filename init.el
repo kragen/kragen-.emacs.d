@@ -216,48 +216,49 @@ The return value is not useful.
 (global-set-key [(control meta _)] 'underline-line)
 (global-set-key [(control meta =)] 'double-underline-line)
 
-;; This should probably be rewritten in Elisp, but what it does is add
-;; a Markdown-style footnote to the end of the paragraph after the
-;; current one, with contents found in the kill ring.  It uses a
-;; kmacro-counter to assign unique numbers to each footnote, which you
-;; may want to initialize to a nonzero initial value with C-x C-k C-c
-;; (kmacro-set-counter).
-(fset 'insert-markdown-footnote-link
-   [?\[ ?\M-0 f3 ?\] ?\C-  ?\M-\} ?\M-\} ?\[ f3 ?\] ?: ?  ?\C-y ?\C-m ?\C-u ?\C-  ?\C-u ?\C- ])
-(global-set-key [(control meta ?\])] 'insert-markdown-footnote-link)
+(defvar markdown-footnote-link-counter 0
+  "The number of the next numbered Markdown link to add to this buffer.")
 
-(defun insert-markdown-foot-note-link-elisp ()
-  "An almost-working translation of insert-markdown-footnote-link.
+(make-variable-buffer-local 'markdown-footnote-link-counter)
 
-This adds a Markdown-style footnote to the end of the paragraph
-after the current one, with contents found in the kill ring.  It
-uses a kmacro-counter to assign unique numbers to each footnote,
-which you may want to initialize to a nonzero initial value with
-\\[kmacro-set-counter].
+(defun insert-markdown-footnote-link ()
+  "Insert a numbered Markdown link to a copied URL.
 
-I say ‘almost-working’ because it isn’t really okay for things
-that aren’t keyboard macros to use the keyboard macro counter.
+To use this command, first kill the URL you want to link to or
+copy it to the clipboard (for example, by typing C-l C-c in your
+browser), place your cursor at the end of the text you want to
+make into a link, and invoke this command.  This transforms the
+word before the cursor (or the [bracketed phrase] before the
+cursor, if any) into a link to the URL, placing the URL reference
+at the end of a paragraph after the current paragraph.  Invoking
+the command repeatedly will expand the anchor text of the link to
+include previous words.
+
+This command uses the variable `markdown-footnote-link-counter' to
+assign unique numbers to each footnote, which you may want to
+initialize to a nonzero initial value.
+
+This first checks to see if it’s at the end of an existing
+numbered link; if so, it expands that link instead of creating a
+new one.  Otherwise, it checks to see if it’s at the end of an
+existing bracketed phrase; if not, it brackets the previous word.
+Then, it assigns a link number, inserts the number, and adds the
+number to the link paragraph.
 
 This could be improved to do the following:
 
-1. Use its own buffer-local variable to assign footnote numbers.
-2. Initialize that variable from the buffer contents when
+1. Initialize `markdown-footnote-link-counter'
+   from the buffer contents when
    necessary to avoid clashing footnote numbers.  Regexp search
    for '^\[[0-9]+\]: ' ought to be adequate to find them.
-3. Provide a command for changing that variable when the
+2. Provide a command for changing `markdown-footnote-link-counter'
+   when the
    initialization gets it wrong or hangs. (?)
-4. Look back to see if we’re following a ]; if not, enclose the
-   previous word in [] to make it a link before inserting the
-   footnote.
-5. Maybe search through x-get-cut-buffer values (apparently not
+3. Maybe search through `x-get-cut-buffer' values (apparently not
    used by Firefox, though) or current PRIMARY and CLIPBOARD
    selections for URLs, or watch for X selection changes, instead
    of pasting some random piece of text which may not be an URL.
-6. Look back to see if we're following ][digits], and if so,
-   instead of inserting a new link, move the previous [ back to
-   the end of the previous whitespace, expanding the link, rather
-   than adding a new footnote in a syntactically invalid place.
-7. Maybe look for a browser window that publishes the title of
+4. Maybe look for a browser window that publishes the title of
    the link?  Seems like Firefox doesn’t expose the URL as an X11
    property any more (probably no Netscape since Netscape 3 has).
    WM_WINDOW_ROLE is “browser” and WM_NAME has the title in both
@@ -265,16 +266,32 @@ This could be improved to do the following:
 
 "
   (interactive)
-  (insert "[")
-  (kmacro-insert-counter 0)
-  (insert "]")
-  (save-excursion
-    (forward-paragraph 2)
-    (insert "[")
-    (kmacro-insert-counter 1)
-    (insert "]: ")
-    (yank)
-    (insert "\n")))
+  (if (looking-back "]\[[0-9]+\]")      ; expand existing link
+      (save-excursion
+        (search-backward "[")
+        (search-backward "[")
+        (delete-char 1)
+        (search-backward-regexp "\\S-")
+        (search-backward-regexp "\\s-")
+        (forward-char)
+        (insert "["))
+    (progn                              ; else create new link
+      (when (not (looking-back "]"))    ; need to bracket the text?
+        (save-excursion
+          (insert "]")
+          (backward-word 1)
+          (insert "["))
+        (forward-char 1))
+      (insert (format "[%d]" markdown-footnote-link-counter))
+
+      (save-excursion                   ; add the link definition
+        (forward-paragraph 2)
+        (insert (format "[%d]: " markdown-footnote-link-counter))
+        (incf markdown-footnote-link-counter)
+        (yank)
+        (insert "\n")))))
+
+(global-set-key [(control meta ?\])] 'insert-markdown-footnote-link)
 
 
 (defun insert-em-dash ()
