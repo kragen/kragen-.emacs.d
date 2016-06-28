@@ -564,6 +564,8 @@ too bad for Lisps."
    '(default ((t (:stipple nil :background "black" :foreground "red" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
    '(mode-line ((((class color) (min-colors 88)) (:background "black" :foreground "#990000" :box (:line-width -1 :style released-button)))))))
 
+(global-set-key [(control x) (g)] 'magit-status)
+
 ;;; Are these customize settings reflected in js3?  I'm not sure
 ; '(js2-cleanup-whitespace nil)
 ; '(js2-strict-missing-semi-warning nil)
