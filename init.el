@@ -612,6 +612,9 @@ too bad for Lisps."
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(default ((t (:stipple nil :background "#ffffff" :foreground "#000000" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 70 :width normal :foundry "unknown" :family "Monospace"))))
+ '(diff-file-header ((((class color) (min-colors 88) (background dark)) (:background "grey20" :weight bold))))
+ '(highlight ((((class color) (min-colors 88) (background dark)) (:background "#030"))))
+ '(mode-line ((((class color) (min-colors 88)) (:background "black" :foreground "#990000" :box (:line-width -1 :style released-button)))))
  '(paren-face-match ((((class color)) (:background "green"))))
  '(paren-face-mismatch ((((class color)) (:foreground "white" :background "red"))))
  '(paren-match ((t (:background "green"))))
