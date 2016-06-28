@@ -196,6 +196,7 @@ The return value is not useful.
 (global-set-key [f6] 'browse-url-at-point)
 (global-set-key (kbd "C-z") (lambda () (interactive) (message "^Z")))
 
+;;; Is it possible to make this delete an existing underline if any?
 (defun underline-line-with (char)
   (save-excursion
     (let ((length (- (point-at-eol) (point-at-bol))))
@@ -210,6 +211,16 @@ The return value is not useful.
   (underline-line-with ?=))
 (global-set-key [(control meta _)] 'underline-line)
 (global-set-key [(control meta =)] 'double-underline-line)
+
+;; This should probably be rewritten in Elisp, but what it does is add
+;; a Markdown-style footnote to the end of the paragraph after the
+;; current one, with contents found in the kill ring.  It uses a
+;; kmacro-counter to assign unique numbers to each footnote, which you
+;; may want to initialize to a nonzero initial value with C-x C-k C-c
+;; (kmacro-set-counter).
+(fset 'insert-markdown-footnote-link
+   [?\[ ?\M-0 f3 ?\] ?\C-  ?\M-\} ?\M-\} ?\[ f3 ?\] ?: ?  ?\C-y ?\C-m ?\C-u ?\C-  ?\C-u ?\C- ])
+(global-set-key [(control meta ?\])] 'insert-markdown-footnote-link)
 
 (defun insert-em-dash ()
   "Insert a TeX-style em-dash '---' with appropriate spaces around it."
