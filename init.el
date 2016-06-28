@@ -30,6 +30,7 @@
 (iswitchb-mode 1)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
+(scroll-bar-mode 0)
 (fringe-mode '(0 . 4))                  ; half-width fringes on right side only
 (server-start) (setenv "EDITOR" "emacsclient")
 (setenv "PAGER" "cat")           ; prevent git from trying to use less
