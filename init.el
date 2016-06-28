@@ -196,17 +196,21 @@ The return value is not useful.
 (global-set-key [f6] 'browse-url-at-point)
 (global-set-key (kbd "C-z") (lambda () (interactive) (message "^Z")))
 
-;;; Is it possible to make this delete an existing underline if any?
 (defun underline-line-with (char)
   (save-excursion
     (let ((length (- (point-at-eol) (point-at-bol))))
       (end-of-line)
+      (when (looking-at "\n\\(=+\\|-+\\)$")
+          (kill-line)
+          (kill-line))
       (insert "\n")
       (insert (make-string length char)))))
 (defun underline-line ()
+  "Turn the current line into a Markdown setext-style second-level header."
   (interactive)
   (underline-line-with ?-))
 (defun double-underline-line ()
+  "Turn the current line into a Markdown setext-style first-level header."
   (interactive)
   (underline-line-with ?=))
 (global-set-key [(control meta _)] 'underline-line)
