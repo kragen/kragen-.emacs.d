@@ -200,19 +200,23 @@ The return value is not useful.
   (save-excursion
     (let ((length (- (point-at-eol) (point-at-bol))))
       (end-of-line)
-      (when (looking-at "\n\\(=+\\|-+\\)$")
-          (kill-line) ; XXX this is bad; we shouldn’t clobber kill ring
-          (kill-line))
+      (if (looking-at "\n\\(=+\\|-+\\)$")
+        (let ((start (point))
+              (end (save-excursion (end-of-line 2) (point))))
+          (delete-region start end)))
       (insert "\n")
       (insert (make-string length char)))))
+
 (defun underline-line ()
   "Turn the current line into a Markdown setext-style second-level header."
   (interactive)
   (underline-line-with ?-))
+
 (defun double-underline-line ()
   "Turn the current line into a Markdown setext-style first-level header."
   (interactive)
   (underline-line-with ?=))
+
 (global-set-key [(control meta _)] 'underline-line)
 (global-set-key [(control meta =)] 'double-underline-line)
 
