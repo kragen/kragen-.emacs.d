@@ -589,6 +589,9 @@ too bad for Lisps."
  '(js2-strict-missing-semi-warning nil)
  '(kept-new-versions 200)
  '(kept-old-versions 200)
+ '(longlines-show-effect "
+
+")
  '(longlines-show-hard-newlines t)
  '(mark-ring-max 64)
  '(org-agenda-files (quote ("~/notes/notes.org")))
