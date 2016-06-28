@@ -73,6 +73,9 @@
 (defun turn-off-filladapt-mode () (filladapt-mode 0))
 (require 'lua-mode) ; need to apt-get install lua-mode to have this work.
 (add-hook 'lua-mode-hook 'turn-off-filladapt-mode)
+;; Also works poorly with Python docstrings.
+(require 'python)
+(add-hook 'python-mode-hook 'turn-off-filladapt-mode)
 
 (defun add-n-to-list (list-var elements &optional append compare-fn)
   "Add whichever ELEMENTS to the value of LIST-VAR that aren't there yet.
