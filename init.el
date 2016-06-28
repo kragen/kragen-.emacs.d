@@ -617,4 +617,5 @@ too bad for Lisps."
  '(paren-match ((t (:background "green"))))
  '(paren-mismatch ((t (:background "red"))))
  '(show-paren-match ((((class color)) (:background "green"))))
- '(show-paren-mismatch ((((class color)) (:background "blue")))))
+ '(show-paren-mismatch ((((class color)) (:background "blue"))))
+ '(widget-field ((((class grayscale color) (background dark)) (:background "#333")))))
