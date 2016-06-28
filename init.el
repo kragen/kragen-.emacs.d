@@ -216,7 +216,7 @@ The return value is not useful.
 (global-set-key [(control meta _)] 'underline-line)
 (global-set-key [(control meta =)] 'double-underline-line)
 
-(defvar markdown-footnote-link-counter 0
+(defvar markdown-footnote-link-counter nil
   "The number of the next numbered Markdown link to add to this buffer.")
 
 (make-variable-buffer-local 'markdown-footnote-link-counter)
@@ -247,18 +247,14 @@ number to the link paragraph.
 
 This could be improved to do the following:
 
-1. Initialize `markdown-footnote-link-counter'
-   from the buffer contents when
-   necessary to avoid clashing footnote numbers.  Regexp search
-   for '^\[[0-9]+\]: ' ought to be adequate to find them.
-2. Provide a command for changing `markdown-footnote-link-counter'
+1. Provide a command for changing `markdown-footnote-link-counter'
    when the
    initialization gets it wrong or hangs. (?)
-3. Maybe search through `x-get-cut-buffer' values (apparently not
+2. Maybe search through `x-get-cut-buffer' values (apparently not
    used by Firefox, though) or current PRIMARY and CLIPBOARD
    selections for URLs, or watch for X selection changes, instead
    of pasting some random piece of text which may not be an URL.
-4. Maybe look for a browser window that publishes the title of
+3. Maybe look for a browser window that publishes the title of
    the link?  Seems like Firefox doesn’t expose the URL as an X11
    property any more (probably no Netscape since Netscape 3 has).
    WM_WINDOW_ROLE is “browser” and WM_NAME has the title in both
@@ -282,17 +278,34 @@ This could be improved to do the following:
           (backward-word 1)
           (insert "["))
         (forward-char 1))
-      (insert (format "[%d]" markdown-footnote-link-counter))
+      (let ((link-number (markdown-assign-footnote-link)))
+        (insert (format "[%d]" link-number))
 
-      (save-excursion                   ; add the link definition
-        (forward-paragraph 2)
-        (insert (format "[%d]: " markdown-footnote-link-counter))
-        (incf markdown-footnote-link-counter)
-        (yank)
-        (insert "\n")))))
+        (save-excursion                 ; add the link definition
+          (forward-paragraph 2)
+          (insert (format "[%d]: " link-number))
+          (yank)
+          (insert "\n"))))))
 
 (global-set-key [(control meta ?\])] 'insert-markdown-footnote-link)
 
+(defun markdown-assign-footnote-link ()
+  (if (not markdown-footnote-link-counter)
+      (setq markdown-footnote-link-counter (markdown-scan-footnote-numbers)))
+  (prog1
+      markdown-footnote-link-counter
+    (incf markdown-footnote-link-counter)))
+
+(defun markdown-scan-footnote-numbers ()
+  "Return the first unused footnote number by scanning this buffer."
+  (save-excursion
+    (goto-char (point-min))
+    (let ((counter 0))
+      (while (search-forward-regexp "^\\[\\([0-9]+\\)\\]: " nil t)
+        (let ((new-number (string-to-number (match-string 1))))
+          (if (>= new-number counter)
+              (setq counter (1+ new-number)))))
+      counter)))
 
 (defun insert-em-dash ()
   "Insert a TeX-style em-dash '---' with appropriate spaces around it."
