@@ -358,7 +358,12 @@ The return value is not useful.
                            :underline nil :slant normal
                            :weight bold :height 180
                            :width normal
-                           :family "adobe-courier"))))))
+                           :foundry "unknown"
+                           :family "DejaVu Sans Mono"))))
+   '(mode-line ((((class color) (min-colors 88))
+                 (:background "#000000"
+                  :foreground "#ffffff"
+                  :box (:line-width -1 :style released-button)))))))
 
 ;;; my todelicious file
 
