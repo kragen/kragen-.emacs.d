@@ -670,6 +670,64 @@ too bad for Lisps."
 ; '(js2-cleanup-whitespace nil)
 ; '(js2-strict-missing-semi-warning nil)
 
+
+;;; I want jj to insert a space because my spacebar is broken.
+(defun magic-jj ()
+  "Makes the j key magically insert spaces if you use it twice."
+  (interactive)
+  (insert "j")
+  (message "j again to insert space")
+  (momentary-highlight (- (point) 1) (point))
+  (set-transient-map
+   (let ((map (make-sparse-keymap)))
+     (define-key map [(j)] 'magic-jj-2)
+     map)))
+
+(defun magic-jj-2 ()
+  "Second part of remapping the j key to insert spaces.  See `magic-jj'."
+  (interactive)
+  (delete-char -1)
+  (insert " "))
+
+(global-set-key [(j)] 'magic-jj)
+
+;;; Maybe a better approach is postprocessing using M-j, which by
+;;; default is bound to the relatively useless
+;;; indent-new-comment-line, which is also bound to C-M-j anyway.
+(defun magic-fix-space ()
+  "Find the most recent caps-indicated word boundary and fix it."
+  (interactive)
+  (save-excursion
+    (if (let ((case-fold-search nil))
+          (search-backward-regexp "[^\n \t][A-Z]" 0 t))
+        (progn
+          (forward-char 1)
+          (let ((start (point)))
+            (insert " ")
+            (downcase-word 1)
+            (momentary-highlight start (point))))
+      (message "can’t find any capitalizationIndicatedBoundaries"))))
+
+(global-set-key [(meta j)] 'magic-fix-space)
+
+;;; By the same token, I want mouse clicks to be no-ops most of the
+;;; time, instead of their default binding to mouse-drag-region.  This
+;;; leaves double-click behavior unchanged, but that should be a lot
+;;; less frustrating.
+(global-set-key [mouse-1] (lambda () (interactive) (message "clicky!")))
+(global-set-key [down-mouse-1] (lambda () (interactive) (message "clicky!")))
+
+;; You would think this was no longer needed, since frames.el binds
+;; it, but apparently devhelp overrides it:
+(global-set-key [f11] 'toggle-frame-fullscreen)
+
+;; The default binding for M-o is the facemenu-map, which includes
+;; formatting commands I never use.  One-key access to shell, like a
+;; Quake terminal, is much more valuable.
+(global-set-key [(meta o)] 'shell)
+
+(toggle-frame-fullscreen)
+
 ;;; custom
 
 (custom-set-variables
@@ -727,3 +785,4 @@ too bad for Lisps."
  '(show-paren-match ((((class color)) (:background "green"))))
  '(show-paren-mismatch ((((class color)) (:background "blue"))))
  '(widget-field ((((class grayscale color) (background dark)) (:background "#333")))))
+(put 'scroll-left 'disabled nil)
