@@ -463,7 +463,8 @@ This could be improved to do the following:
    '(mode-line ((((class color) (min-colors 88))
                  (:background "#000000"
                   :foreground "#ffffff"
-                  :box (:line-width -1 :style released-button)))))))
+                  :box (:line-width -1 :style released-button))))))
+  (bright))
 
 ;;; my todelicious file
 
@@ -725,6 +726,23 @@ too bad for Lisps."
 ;; formatting commands I never use.  One-key access to shell, like a
 ;; Quake terminal, is much more valuable.
 (global-set-key [(meta o)] 'shell)
+
+(defun set-brightness (new-brightness)
+  "Use MATE and pkexec to set screen brightness 0–1000."
+  (interactive "nBrightness (0–1000): ")
+  (shell-command
+   (concat "pkexec --user root mate-power-backlight-helper --set-brightness "
+           (int-to-string new-brightness))))
+
+(defun bright ()
+  "Set screen brightness to max."
+  (interactive)
+  (set-brightness 1000))
+
+(defun dim ()
+  "Set screen brightness to 5% (50)."
+  (interactive)
+  (set-brightness 50))
 
 (toggle-frame-fullscreen)
 
