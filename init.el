@@ -77,6 +77,8 @@
 ;; Also works poorly with Python docstrings.
 (require 'python)
 (add-hook 'python-mode-hook 'turn-off-filladapt-mode)
+(require 'cc-mode)
+(add-hook 'c-mode-hook 'turn-off-filladapt-mode)
 
 (defun add-n-to-list (list-var elements &optional append compare-fn)
   "Add whichever ELEMENTS to the value of LIST-VAR that aren't there yet.
