@@ -751,10 +751,10 @@ too bad for Lisps."
 ;;; custom
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(asm-comment-char 35)
  '(blink-matching-paren-dont-ignore-comments t)
  '(column-number-mode t)
@@ -764,7 +764,72 @@ too bad for Lisps."
  '(global-font-lock-mode t nil (font-lock))
  '(indent-tabs-mode nil)
  '(inferior-lisp-program "sbcl")
- '(ispell-dictionary-alist (quote ((nil "[A-Za-z]" "[^A-Za-z]" "'\\|’" nil ("-B") nil iso-8859-1) ("american" "[A-Za-z]" "[^A-Za-z]" "'\\|’" nil ("-B") nil iso-8859-1) ("brasileiro" "[A-ZÁÉÍÓÚÀÈÌÒÙÃÕÇÜÂÊÔa-záéíóúàèìòùãõçüâêô]" "[^A-ZÁÉÍÓÚÀÈÌÒÙÃÕÇÜÂÊÔa-záéíóúàèìòùãõçüâêô]" "[']" nil nil nil iso-8859-1) ("british" "[A-Za-z]" "[^A-Za-z]" "[']" nil ("-B") nil iso-8859-1) ("castellano" "[A-ZÁÉÍÑÓÚÜa-záéíñóúü]" "[^A-ZÁÉÍÑÓÚÜa-záéíñóúü]" "[-]" nil ("-B") "~tex" iso-8859-1) ("castellano8" "[A-ZÁÉÍÑÓÚÜa-záéíñóúü]" "[^A-ZÁÉÍÑÓÚÜa-záéíñóúü]" "[-]" nil ("-B" "-d" "castellano") "~latin1" iso-8859-1) ("czech" "[A-Za-zÁÉÌÍÓÚÙÝ®©ÈØÏ«Òáéìíóúùý¾¹èøï»ò]" "[^A-Za-zÁÉÌÍÓÚÙÝ®©ÈØÏ«Òáéìíóúùý¾¹èøï»ò]" "" nil ("-B") nil iso-8859-2) ("dansk" "[A-ZÆØÅa-zæøå]" "[^A-ZÆØÅa-zæøå]" "[']" nil ("-C") nil iso-8859-1) ("deutsch" "[a-zA-Z\"]" "[^a-zA-Z\"]" "[']" t ("-C") "~tex" iso-8859-1) ("deutsch8" "[a-zA-ZÄÖÜäößü]" "[^a-zA-ZÄÖÜäößü]" "[']" t ("-C" "-d" "deutsch") "~latin1" iso-8859-1) ("english" "[A-Za-z]" "[^A-Za-z]" "[']" nil ("-B") nil iso-8859-1) ("esperanto" "[A-Za-z¦¬¶¼ÆØÝÞæøýþ]" "[^A-Za-z¦¬¶¼ÆØÝÞæøýþ]" "[-']" t ("-C") "~latin3" iso-8859-1) ("esperanto-tex" "[A-Za-z^\\]" "[^A-Za-z^\\]" "[-'`\"]" t ("-C" "-d" "esperanto") "~tex" iso-8859-1) ("francais7" "[A-Za-z]" "[^A-Za-z]" "[`'^---]" t nil nil iso-8859-1) ("francais" "[A-Za-zÀÂÆÇÈÉÊËÎÏÔÙÛÜàâçèéêëîïôùûü]" "[^A-Za-zÀÂÆÇÈÉÊËÎÏÔÙÛÜàâçèéêëîïôùûü]" "[-']" t nil "~list" iso-8859-1) ("francais-tex" "[A-Za-zÀÂÆÇÈÉÊËÎÏÔÙÛÜàâçèéêëîïôùûü\\]" "[^A-Za-zÀÂÆÇÈÉÊËÎÏÔÙÛÜàâçèéêëîïôùûü\\]" "[-'^`\"]" t nil "~tex" iso-8859-1) ("italiano" "[A-ZÀÁÈÉÌÍÒÓÙÚa-zàáèéìíóùú]" "[^A-ZÀÁÈÉÌÍÒÓÙÚa-zàáèéìíóùú]" "[-]" nil ("-B") "~tex" iso-8859-1) ("nederlands" "[A-Za-zÀ-ÅÇÈ-ÏÒ-ÖÙ-Üà-åçè-ïñò-öù-ü]" "[^A-Za-zÀ-ÅÇÈ-ÏÒ-ÖÙ-Üà-åçè-ïñò-öù-ü]" "[']" t ("-C") nil iso-8859-1) ("nederlands8" "[A-Za-zÀ-ÅÇÈ-ÏÒ-ÖÙ-Üà-åçè-ïñò-öù-ü]" "[^A-Za-zÀ-ÅÇÈ-ÏÒ-ÖÙ-Üà-åçè-ïñò-öù-ü]" "[']" t ("-C") nil iso-8859-1) ("norsk" "[A-Za-zÅÆÇÈÉÒÔØåæçèéòôø]" "[^A-Za-zÅÆÇÈÉÒÔØåæçèéòôø]" "[\"]" nil nil "~list" iso-8859-1) ("norsk7-tex" "[A-Za-z{}\\'^`]" "[^A-Za-z{}\\'^`]" "[\"]" nil ("-d" "norsk") "~plaintex" iso-8859-1) ("polish" "[A-Za-z¡£¦¬¯±³¶¼¿ÆÊÑÓæêñó]" "[^A-Za-z¡£¦¬¯±³¶¼¿ÆÊÑÓæêñó]" "" nil nil nil iso-8859-2) ("portugues" "[a-zA-ZÁÂÉÓàáâéêíóãú]" "[^a-zA-ZÁÂÉÓàáâéêíóãú]" "[']" t ("-C") "~latin1" iso-8859-1) ("russian" "[áâ÷çäå³öúéêëìíîïðòóôõæèãþûýøùÿüàñÁÂ×ÇÄÅ£ÖÚÉÊËÌÍÎÏÐÒÓÔÕÆÈÃÞÛÝØÙßÜÀÑ]" "[^áâ÷çäå³öúéêëìíîïðòóôõæèãþûýøùÿüàñÁÂ×ÇÄÅ£ÖÚÉÊËÌÍÎÏÐÒÓÔÕÆÈÃÞÛÝØÙßÜÀÑ]" "" nil nil nil koi8-r) ("slovak" "[A-Za-zÁÄÉÍÓÚÔÀÅ¥Ý®©ÈÏ«Òáäéíóúôàåµý¾¹èï»ò]" "[^A-Za-zÁÄÉÍÓÚÔÀÅ¥Ý®©ÈÏ«Òáäéíóúôàåµý¾¹èï»ò]" "" nil ("-B") nil iso-8859-2) ("svenska" "[A-Za-zåäöéàüèæøçÅÄÖÉÀÜÈÆØÇ]" "[^A-Za-zåäöéàüèæøçÅÄÖÉÀÜÈÆØÇ]" "[']" nil ("-C") "~list" iso-8859-1))) t)
+ '(ispell-dictionary-alist
+   (quote
+    ((nil "[A-Za-z]" "[^A-Za-z]" "'\\|’" nil
+          ("-B")
+          nil iso-8859-1)
+     ("american" "[A-Za-z]" "[^A-Za-z]" "'\\|’" nil
+      ("-B")
+      nil iso-8859-1)
+     ("brasileiro" "[A-ZÁÉÍÓÚÀÈÌÒÙÃÕÇÜÂÊÔa-záéíóúàèìòùãõçüâêô]" "[^A-ZÁÉÍÓÚÀÈÌÒÙÃÕÇÜÂÊÔa-záéíóúàèìòùãõçüâêô]" "[']" nil nil nil iso-8859-1)
+     ("british" "[A-Za-z]" "[^A-Za-z]" "[']" nil
+      ("-B")
+      nil iso-8859-1)
+     ("castellano" "[A-ZÁÉÍÑÓÚÜa-záéíñóúü]" "[^A-ZÁÉÍÑÓÚÜa-záéíñóúü]" "[-]" nil
+      ("-B")
+      "~tex" iso-8859-1)
+     ("castellano8" "[A-ZÁÉÍÑÓÚÜa-záéíñóúü]" "[^A-ZÁÉÍÑÓÚÜa-záéíñóúü]" "[-]" nil
+      ("-B" "-d" "castellano")
+      "~latin1" iso-8859-1)
+     ("czech" "[A-Za-zÁÉÌÍÓÚÙÝ®©ÈØÏ«Òáéìíóúùý¾¹èøï»ò]" "[^A-Za-zÁÉÌÍÓÚÙÝ®©ÈØÏ«Òáéìíóúùý¾¹èøï»ò]" "" nil
+      ("-B")
+      nil iso-8859-2)
+     ("dansk" "[A-ZÆØÅa-zæøå]" "[^A-ZÆØÅa-zæøå]" "[']" nil
+      ("-C")
+      nil iso-8859-1)
+     ("deutsch" "[a-zA-Z\"]" "[^a-zA-Z\"]" "[']" t
+      ("-C")
+      "~tex" iso-8859-1)
+     ("deutsch8" "[a-zA-ZÄÖÜäößü]" "[^a-zA-ZÄÖÜäößü]" "[']" t
+      ("-C" "-d" "deutsch")
+      "~latin1" iso-8859-1)
+     ("english" "[A-Za-z]" "[^A-Za-z]" "[']" nil
+      ("-B")
+      nil iso-8859-1)
+     ("esperanto" "[A-Za-z¦¬¶¼ÆØÝÞæøýþ]" "[^A-Za-z¦¬¶¼ÆØÝÞæøýþ]" "[-']" t
+      ("-C")
+      "~latin3" iso-8859-1)
+     ("esperanto-tex" "[A-Za-z^\\]" "[^A-Za-z^\\]" "[-'`\"]" t
+      ("-C" "-d" "esperanto")
+      "~tex" iso-8859-1)
+     ("francais7" "[A-Za-z]" "[^A-Za-z]" "[`'^---]" t nil nil iso-8859-1)
+     ("francais" "[A-Za-zÀÂÆÇÈÉÊËÎÏÔÙÛÜàâçèéêëîïôùûü]" "[^A-Za-zÀÂÆÇÈÉÊËÎÏÔÙÛÜàâçèéêëîïôùûü]" "[-']" t nil "~list" iso-8859-1)
+     ("francais-tex" "[A-Za-zÀÂÆÇÈÉÊËÎÏÔÙÛÜàâçèéêëîïôùûü\\]" "[^A-Za-zÀÂÆÇÈÉÊËÎÏÔÙÛÜàâçèéêëîïôùûü\\]" "[-'^`\"]" t nil "~tex" iso-8859-1)
+     ("italiano" "[A-ZÀÁÈÉÌÍÒÓÙÚa-zàáèéìíóùú]" "[^A-ZÀÁÈÉÌÍÒÓÙÚa-zàáèéìíóùú]" "[-]" nil
+      ("-B")
+      "~tex" iso-8859-1)
+     ("nederlands" "[A-Za-zÀ-ÅÇÈ-ÏÒ-ÖÙ-Üà-åçè-ïñò-öù-ü]" "[^A-Za-zÀ-ÅÇÈ-ÏÒ-ÖÙ-Üà-åçè-ïñò-öù-ü]" "[']" t
+      ("-C")
+      nil iso-8859-1)
+     ("nederlands8" "[A-Za-zÀ-ÅÇÈ-ÏÒ-ÖÙ-Üà-åçè-ïñò-öù-ü]" "[^A-Za-zÀ-ÅÇÈ-ÏÒ-ÖÙ-Üà-åçè-ïñò-öù-ü]" "[']" t
+      ("-C")
+      nil iso-8859-1)
+     ("norsk" "[A-Za-zÅÆÇÈÉÒÔØåæçèéòôø]" "[^A-Za-zÅÆÇÈÉÒÔØåæçèéòôø]" "[\"]" nil nil "~list" iso-8859-1)
+     ("norsk7-tex" "[A-Za-z{}\\'^`]" "[^A-Za-z{}\\'^`]" "[\"]" nil
+      ("-d" "norsk")
+      "~plaintex" iso-8859-1)
+     ("polish" "[A-Za-z¡£¦¬¯±³¶¼¿ÆÊÑÓæêñó]" "[^A-Za-z¡£¦¬¯±³¶¼¿ÆÊÑÓæêñó]" "" nil nil nil iso-8859-2)
+     ("portugues" "[a-zA-ZÁÂÉÓàáâéêíóãú]" "[^a-zA-ZÁÂÉÓàáâéêíóãú]" "[']" t
+      ("-C")
+      "~latin1" iso-8859-1)
+     ("russian" "[áâ÷çäå³öúéêëìíîïðòóôõæèãþûýøùÿüàñÁÂ×ÇÄÅ£ÖÚÉÊËÌÍÎÏÐÒÓÔÕÆÈÃÞÛÝØÙßÜÀÑ]" "[^áâ÷çäå³öúéêëìíîïðòóôõæèãþûýøùÿüàñÁÂ×ÇÄÅ£ÖÚÉÊËÌÍÎÏÐÒÓÔÕÆÈÃÞÛÝØÙßÜÀÑ]" "" nil nil nil koi8-r)
+     ("slovak" "[A-Za-zÁÄÉÍÓÚÔÀÅ¥Ý®©ÈÏ«Òáäéíóúôàåµý¾¹èï»ò]" "[^A-Za-zÁÄÉÍÓÚÔÀÅ¥Ý®©ÈÏ«Òáäéíóúôàåµý¾¹èï»ò]" "" nil
+      ("-B")
+      nil iso-8859-2)
+     ("svenska" "[A-Za-zåäöéàüèæøçÅÄÖÉÀÜÈÆØÇ]" "[^A-Za-zåäöéàüèæøçÅÄÖÉÀÜÈÆØÇ]" "[']" nil
+      ("-C")
+      "~list" iso-8859-1))) t)
  '(js2-cleanup-whitespace nil)
  '(js2-strict-missing-semi-warning nil)
  '(kept-new-versions 200)
@@ -788,15 +853,18 @@ too bad for Lisps."
  '(vc-handled-backends nil)
  '(version-control t)
  '(visible-bell t)
- '(which-func-modes (quote (emacs-lisp-mode c-mode c++-mode perl-mode cperl-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode python-mode java-mode))))
+ '(which-func-modes
+   (quote
+    (emacs-lisp-mode c-mode c++-mode perl-mode cperl-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode python-mode java-mode))))
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(default ((t (:stipple nil :background "#ffffff" :foreground "#000000" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 70 :width normal :foundry "unknown" :family "Monospace"))))
  '(diff-file-header ((((class color) (min-colors 88) (background dark)) (:background "grey20" :weight bold))))
  '(highlight ((((class color) (min-colors 88) (background dark)) (:background "#030"))))
+ '(highlight-current-line-face ((t (:background "#663333"))))
  '(mode-line ((((class color) (min-colors 88)) (:background "black" :foreground "#990000" :box (:line-width -1 :style released-button)))))
  '(paren-face-match ((((class color)) (:background "green"))))
  '(paren-face-mismatch ((((class color)) (:foreground "white" :background "red"))))
